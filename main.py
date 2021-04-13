@@ -6,6 +6,8 @@ from process_data import  allWords, convoLabels, data
 from NN import convert_input_to_bow
 from NN import model
 import clientGUI as c
+from named_entity_recognition import convert_input_ner
+from constant_map_img import get_constant_map_img
 # these are the model and function for chatting
 # from process_data import ..... (you can load functions, varibles....)
 
@@ -31,14 +33,23 @@ def start():
         print(" ")
 
 def getFinalOutput(loaded_clf, reading):
-    output = model.predict([convert_input_to_bow(reading, allWords )])
+    
+    ner_object = convert_input_ner(reading)
+    print(ner_object)
+                
+    output = model.predict([convert_input_to_bow(ner_object[0], allWords )])
     #get the prediction with max probability.
 
     #get the sentiment of user input
     sent_out = loaded_clf.predict_proba(input_to_bow_sentiment(reading))
 
     #Random response
-    return random.choice(output_depending_on_sentiment(sent_out,output))
+    output = output_depending_on_sentiment(sent_out,output)
+    print(output)
+    
+    if output[0] == '<GPE>': 
+        get_constant_map_img(ner_object[1], 1)
+    return random.choice(output)
 
 
 
@@ -55,7 +66,7 @@ def input_to_bow_sentiment(words):
     wrds_list = [words]
     wrds_list_bow = vectorizer.transform(wrds_list)
     return wrds_list_bow
-
+                                                                
 def output_depending_on_sentiment(sentiment,output):
     if sentiment[0][0] > 0.65:
         return NEGATIVE_RESPONSES

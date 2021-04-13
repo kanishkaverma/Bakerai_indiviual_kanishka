@@ -1,0 +1,2 @@
+
+API_KEY_STATIC_MAPS = 'AIzaSyDZ3iuPYupjnDXpuR15vNSkxprMQHS2dXE' 

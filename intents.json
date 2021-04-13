@@ -98,6 +98,13 @@
         "patterns": ["Can I have some bread","what bread do you have", "Do you have bread", "I want bread","Can I have bread","how much does bread cost","What bread do you sell","Do you still have bread"],
         "responses": ["We have lots of bread, such as white, wholewheat, or sourdough bread. For more information, visit our website BakeSakura.com"],
         "context_set": ""
+        }, 
+    {"tag": "static_map_api",
+        "patterns": ["show me <GPE> on a map","where is <GPE>"],
+        "responses": [
+                "<GPE>"
+        ],
+        "context_set": ""
         }
        
      

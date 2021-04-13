@@ -16,6 +16,7 @@ with open(f'{pathlib.Path(__file__).parent.absolute()}\\intents.json') as jsonFi
 
     data = json.load(jsonFile)
 try:
+    x
 
     #check for caching the model so that don't have to train the model everytime.
     with open("data.pickle", "rb") as f: 

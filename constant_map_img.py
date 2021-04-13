@@ -1,21 +1,28 @@
 import requests
-import constants
- 
-base_url = "https://maps.googleapis.com/maps/api/staticmap?"
-focus = "london"
-zoom_level = 10
+from io import BytesIO
 
-formats = 'text'
+from PIL import Image
+import requests
 
-r = requests.get(base_url + "center=" + focus + "&zoom=" +
-                   str(zoom_level) + "&size=400x400&key=" +
-                             constants.API_KEY_STATIC_MAPS)
-#  headers={
-#    "X-RapidAPI-Host": "alexnormand-dino-ipsum.p.rapidapi.com",
-#    "X-RapidAPI-Key": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-#  }
-f = open('./test.png', 'wb')
-f.write(r.content)
+import keys 
 
-f.close()
+def get_constant_map_img( home_address, zoom_level ): 
+    base_url = "https://maps.googleapis.com/maps/api/staticmap?"
+    focus = "london"
+    # home_address = '221B Baker Street, london'
+    zoom_level = 10
+
+    formats = 'text'
+    print(keys.API_KEY_STATIC_MAPS)
+    r = requests.get(base_url + "center=" + home_address +"&markers=" + home_address + "&size=400x400&key=" +
+                                keys.API_KEY_STATIC_MAPS)
+    #  "&zoom=" +                 str(zoom_level)
+    img = Image.open(BytesIO(r.content))
+    img.show()
+    f = open('./test.png', 'wb')
+    f.write(r.content)
+
+    f.close()
+    
+get_constant_map_img('india',10)
  
