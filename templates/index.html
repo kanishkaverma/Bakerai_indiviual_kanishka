@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hello world</title>
+     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+     {% block javascript %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  {% endblock %}
+  </head>
+ 
+  <body>
+    <h1>Flask ChatBot</h1>
+    <form action="/" method="get" id="input-form">
+      <div id="chatbox">
+        <p class="bot-text"><span>HI, welcome to bakerai!</span></p>
+      </div>
+      <div id="form-container">
+        <div id="input-container">
+          <input type="text" id="user_input" name="user-input" placeholder="Enter message you would like to send to the bot." />
+          <button type="submit">Submit</button>
+          <!-- <input id="buttonInput" type="submit" value="send">  -->
+        </div>
+      </div>
+      <!-- <div id="response">{{bot_response}}</div> -->
+    </form>
+  </body>
+  
+ <script type=text/javascript>
+    // console.log('test')
+
+    //  $(document).ready(function(){
+
+   $('#input-form').submit( async function(e) {
+
+      e.preventDefault();
+      //Do stuff here
+      let user_input = $("#user_input").val();
+
+     const response=  await fetch(
+        `/get?user-input=${user_input}`
+      )
+      
+      let userHtml = '<p class = "UserText"><span>' + user_input + '</span></p>'
+      let bot_response = await response.text( )
+       let bot_html =  '<p class = "UserText"><span>' + bot_response + '</span></p>'
+       console.log(user_input,bot_response)
+   
+      $("#user_input").val("");
+      $("#chatbox").append(userHtml)
+   
+      $("#chatbox").append(bot_html)
+      //  return false   
+      
+   }); 
+
+// });
+
+// document.getElementById('input-container').scrollIntoView({block:'start',behavior: 'smooth'})
+</script>
+</html>

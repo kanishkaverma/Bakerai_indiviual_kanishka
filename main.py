@@ -19,18 +19,20 @@ NEGATIVE_RESPONSES = ["You seem unhappy. I am sorry :("]
 
 #start chat - 'quit' to quit.
 
-def start():
+def start(user_input):
+    
     loaded_clf = load_sentiment_analysis()[0]
     print("\n\n\n\n\n")
     print("Hello! This is the chatbot. I am here to tell you about the bakery Sakura! (type 'quit' to quit.) Let's chat:", flush = True)
     while True:
-        reading = input()
+        reading = user_input 
         if reading.strip().lower() == "quit":
             break
 
         # print a response.
-        print(f'bot: {getFinalOutput(loaded_clf,reading)}')
-        print(" ")
+        # print(f'bot: {getFinalOutput(loaded_clf,reading)}')
+        return getFinalOutput(loaded_clf,reading)
+        # print(" ")
 
 def getFinalOutput(loaded_clf, reading):
     
