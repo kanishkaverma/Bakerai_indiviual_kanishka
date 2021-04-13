@@ -1,6 +1,8 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 import main as m
+from tkinter import *  
+from PIL import ImageTk,Image  
 
 FONT = ("Verdana",12)
 TITLE_FONT = ("Verdana",16)
@@ -25,6 +27,8 @@ class bakerClient(tk.Tk):
             mainFrame.grid_rowconfigure(index=i, weight=1)
             mainFrame.grid_columnconfigure(index=i, weight=1)
         self.loaded_clf = m.load_sentiment_analysis()[0]
+              
+        
         
         # Elements of the main frame #
         # Title
@@ -59,12 +63,41 @@ class bakerClient(tk.Tk):
         self.userInput.delete(0, "end")
         # Get our reply
         reply = "BakerAI: " + m.getFinalOutput(self.loaded_clf,userMessage) + "\n"
+        # load = Image.open("test.png")
+        # render = ImageTk.PhotoImage(load)
+        # img = Label(self, image=render)
+        # img.image = render
+        # img.place(x=0, y=0)
+        if reply.__contains__("We are at"): 
+            self.iniImage()
+        # path = "./test.png"
+
+        # image = PhotoImage(Image.open(path))
+
+        # panel = Label(self.outputBox, image = image)
+
+        # panel.pack()
+
         # Send reply to client
         storedUserMessage = "You: " + userMessage + "\n"
         self.outputBox.configure(state="normal")
         self.outputBox.insert(tk.END, storedUserMessage) 
         self.outputBox.insert(tk.END, reply) 
+        # root = Tk()      
+        # canvas = Canvas(root, width = 300, height = 300)      
+        # canvas.pack()      
+        # img = PhotoImage(file="test.png")      
+        
+        # self.outputBox.create_image(20,20, anchor=NW, image=img) 
         self.outputBox.configure(state="disabled")
+    
+    def iniImage(self):
+        img = Image.open("test.png")
+        img = img.resize((300,200), Image.ANTIALIAS)
+        img = ImageTk.PhotoImage(img)
+        panel = Label(self, image=img)
+        panel.image = img
+        panel.place(relheight=.2,relwidth=0.25,x=200, y=200)
 
 
 if __name__ == '__main__':

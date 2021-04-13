@@ -70,15 +70,15 @@ model = tflearn.DNN(nerual_net)
 # this model untilize DNN(deep neural network) for natural langrage processing
 
 # try:
-for word in allWords: 
-    print(word)
+# for word in allWords: 
+#     print(word)
     
-#     model.load("model.tflearn")
+model.load("model.tflearn")
 # except:
-model.fit(training, output, n_epoch=500, batch_size=8)
+# model.fit(training, output, n_epoch=500, batch_size=8)
 # print(model.evaluate(training, output))
 # #     # this is where model is trained
-# #     # training and output both pass in
+# #     # training and output both https://www.google.com/maps/place/221B+Baker+St,+Marylebone,+London+NW1+6XE,+UK/@51.523767,-0.1607497,17z/data=!3m1!4b1!4m5!3m4!1s0x48761acf33628211:0x445d7677a88322e1!8m2!3d51.523767!4d-0.1585557pass in
 # #     # n_epoch is for how many its going to see the same data, in this case its 1000 time(we expect the more we show the same data, the better it is classifying )
 # #     # we pass in 8 batch at a timeo
 # p = convert_input_to_bow("Load blood pessure for patient", allWords)

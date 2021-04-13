@@ -51,7 +51,7 @@
         },
         {"tag": "location",
          "patterns": ["where is Sakura", "how can I get to Sakura", "What is the address for Sakura", "where are you", "where is the shop"],
-         "responses": ["We are at 221B Baker Street accross Lake Regional Park :)"],
+         "responses": ["We are at 221B Baker Street accross Lake Regional Park :) \n  https://www.google.com/maps/place/221B+Baker+St,+Marylebone,+London+NW1+6XE,+UK/@51.523767,-0.1607497,17z/data=!3m1!4b1!4m5!3m4!1s0x48761acf33628211:0x445d7677a88322e1!8m2!3d51.523767!4d-0.1585557"],
          "context_set": ""
         },
         {"tag": "customize",

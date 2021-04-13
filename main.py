@@ -35,7 +35,7 @@ def start():
 def getFinalOutput(loaded_clf, reading):
     
     ner_object = convert_input_ner(reading)
-    print(ner_object)
+    # print(ner_object)
                 
     output = model.predict([convert_input_to_bow(ner_object[0], allWords )])
     #get the prediction with max probability.
@@ -45,10 +45,12 @@ def getFinalOutput(loaded_clf, reading):
 
     #Random response
     output = output_depending_on_sentiment(sent_out,output)
-    print(output)
+    # print(output)
     
-    if output[0] == '<GPE>': 
+    if output[0] == '<GPE>':
         get_constant_map_img(ner_object[1], 1)
+    if output[0].__contains__('We are at 221B Baker Street accross Lake Regional Park :)'):
+        get_constant_map_img('221B Baker Street, London', 1)
     return random.choice(output)
 
 
@@ -87,6 +89,6 @@ def output_depending_on_sentiment(sentiment,output):
         # extract the correct response from intents.json.
 
 if __name__ == "__main__":
-    #start()
-    client = c.bakerClient()
-    client.mainloop()
+    start()
+    # client = c.bakerClient()
+    # client.mainloop()
