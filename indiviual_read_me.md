@@ -1,5 +1,8 @@
 # Features implemented since A3
 
+## to run 
+-run flask_backend.py 
+-go to the specified http url and you should be able to query the bot from there. 
 ## Named Entity Recognition
 
 The code of this feature is contained in named_entity_recognition.py. I had to implement this feature before I can use the google map static image API.
@@ -53,3 +56,8 @@ I emailed the proffesor, asking her if it is possible to integrate the bot with 
 Since I was able to make the bot into a flask application, I thought it might be simple to use the visualization api and display some kind of chart about the store. However, the task was more challenging than I thought. regardless, I was able to do it. The app homepage has a bar chart with hours of the day on the x axis and frequency on the y axis. What the chart displays is how many user's visited the website at a certain hour of the day. To achieve this task, I created a dictionary called frequency on the backend. Whenever, someone made a request to the index page in the backend, I incremented the counter corresponding to the hour at which the request was made. Then I made a new route, so that I can provide said frequency dictionary to the front end. the frontend fetches the dictionary on load using a get request to the /visualize route. After fetching the dictionary, I had to parse it into the exact format which the visualization graph api wanted it in. This was a very challenging task and after a couple of hours, I was able to do it. The result speaks for itself. I make sure to reset the frequency dictionary at 12:00 am everyday.
 
 ![ner-example](./image/vis.png)
+
+
+### git tree
+
+![ner-example](./image/git_tree.png)
