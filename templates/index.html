@@ -4,32 +4,86 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>hello world</title>
-     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+     <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}"> -->
      {% block javascript %}
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 
      {% endblock %}
   </head>
  
-  <body>
+  <body class="d-flex flex-column align-items-center">
     <h1>Flask ChatBot</h1>
+    <div id="chatbox">
+      <p class="bot-text"><span>Hi, Welcome to Bakerai!</span></p>
+    </div>
     <form action="/" method="get" id="input-form">
-      <div id="chatbox">
-        <p class="bot-text"><span>Hi, Welcome to Bakerai!</span></p>
-      </div>
       <div id="form-container">
-        <div id="input-container">
-          <input type="text" id="user_input" name="user-input" placeholder="Enter message you would like to send to the bot." />
-          <button type="submit">Submit</button>
+        <div class="d-flex justify-content-center" id="input-container">
+          <input style="width: 500px;"class="form-control mw-100" type="text" id="user_input" name="user-input" placeholder="Enter message you would like to send to the bot." />
+          <button class="btn btn-primary ml-2" type="submit">Submit</button>
         </div>
       </div>
       <!-- <div id="response">{{bot_response}}</div> -->
     </form>
+     <div id="columnchart_values" ></div>
+
   </body>
   
  <script type=text/javascript>
 
+let data_arr =  [] 
+ // A $( document ).ready() block.
+$( document ).ready(async function() {
+    let freq =  await fetch(
+       `/frequency`
+       )
+      let freq_json = await freq.json()
+     
+      console.log(freq_json)
+      var i; 
+     for (i=0; i<=23; i++)     { 
+
+    data_arr.push([i + ":00",freq_json[i]])
+
+     }
+   google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Time", "Frequency" ],
+      ...data_arr
+      ]);
+      console.log(data)
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                      
+                       ]);
+
+      //  view.setColumns([0,1])
+      var options = {
+
+        title: "No Of Visitors by hour",
+        width: 400,
+        
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+       if (data_arr.length != 0){ 
+
+
+         var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+         chart.draw(view, options);
+      }
+  }
+});
 
    $('#input-form').submit( async function(e) {
 
@@ -40,25 +94,26 @@
         `/get?user-input=${user_input}`
       )
       
-      let userHtml = '<p class = "UserText"><span>User: ' + user_input + '</span></p>'
+    
+     
+
+      
+      let userHtml = '<p class = "UserText"><span> ' + new Date().toLocaleString() + " User: " + user_input + '</span></p>'
       let bot_response = await response.text( )
-       let bot_html =  '<p class = "UserText"><span>Bot: ' + bot_response + '</span></p>'
-      //  console.log(user_input,bot_response)
-      //  if  (bot_response.includes("We are at")) {
-
-      //  let bot_html =  '<p class = "UserText"><span>' + bot_response + '</span></p>'
-
-
-      //  }
-   
+       let bot_html =  '<p class = "UserText"><span> ' + new Date().toLocaleString() + " Bot: " + bot_response + '</span></p>'
+      
       $("#user_input").val("");
 
       $("#chatbox").append(userHtml)
       
       $("#chatbox").append(bot_html)
 
-      document.body.scrollIntoView(false)
+      // document.body.scrollIntoView(false)
+      //  let scroll = document.querySelector('#chatbox').children
+        // Array.from(scroll)[scroll.length-2].scrollIntoView(false)
+    
     }); 
+      
 
 
 </script>
