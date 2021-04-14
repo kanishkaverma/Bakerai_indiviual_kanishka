@@ -1,3 +1,7 @@
+
+----------------------NEW CHANGES IN INDIVIUAL_README.md----------------------------------------------------------------------------------------
+
+
 # Bakerai
 
 ## Bakerai is an online chatbot for a imaginary bakery - SAKURA. Bakerai acts as your online assistant to provide customer information they need about SAKURA without leaving the comfort of their home.
