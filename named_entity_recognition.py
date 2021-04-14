@@ -39,3 +39,5 @@ def process_after_ner(text, replaced_word):
 
 def replace_in_text(text, label, input_text): 
     return input_text.replace(text, f'<{label}>')
+
+# main()

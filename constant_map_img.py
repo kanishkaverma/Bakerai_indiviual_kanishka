@@ -26,8 +26,8 @@ def get_constant_map_img( home_address, zoom_level ):
     f.close()
     if home_address == "221B Baker Street, London": 
         webbrowser.open_new_tab('address.html')
-    else: 
-        webbrowser.open('test.png') 
+        # webbrowser.open('test.png') 
     
+    return base_url + "center=" + home_address +"&markers=" + home_address + "&size=400x400&key=" +                     keys.API_KEY_STATIC_MAPS    
 # get_constant_map_img('india',10)
  

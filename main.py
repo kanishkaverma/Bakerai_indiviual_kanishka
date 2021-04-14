@@ -50,7 +50,9 @@ def getFinalOutput(loaded_clf, reading):
     # print(output)
     
     if output[0] == '<GPE>':
-        get_constant_map_img(ner_object[1], 1)
+        
+       return  get_constant_map_img(ner_object[1], 1)
+        
     if output[0].__contains__('We are at 221B Baker Street accross Lake Regional Park :)'):
         get_constant_map_img('221B Baker Street, London', 1)
     return random.choice(output)

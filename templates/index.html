@@ -100,7 +100,18 @@ $( document ).ready(async function() {
       
       let userHtml = '<p class = "UserText"><span> ' + new Date().toLocaleString() + " User: " + user_input + '</span></p>'
       let bot_response = await response.text( )
+      console.log(bot_response)
        let bot_html =  '<p class = "UserText"><span> ' + new Date().toLocaleString() + " Bot: " + bot_response + '</span></p>'
+      if (bot_response.includes("maps.googleapis.com")) {
+        console.log('true')
+         bot_html = `<p class = "UserText"><span>`+ new Date().toLocaleString() + " Bot: " +`<img  style="
+    max-width: 330px;
+    margin-left: 10px;
+" src="${bot_response}"  placeholder="location-api-img"></img>` + '</span></p>'
+          
+          
+         console.log(bot_html)
+      }
       
       $("#user_input").val("");
 
